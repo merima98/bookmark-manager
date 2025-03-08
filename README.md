@@ -1,5 +1,7 @@
 # Bookmark manager
 
+![Screenshot](public/assets/bookmark-manager-preview-image.png)
+
 ## Getting started
 
     git clone https://github.com/merima98/bookmark-manager.git
