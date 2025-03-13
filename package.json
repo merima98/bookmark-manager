@@ -6,6 +6,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.13.0",
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-label": "^2.1.0",
@@ -20,7 +23,8 @@
     "next-themes": "^0.4.3",
     "prettier": "^3.3.3",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "react-shadow": "^20.6.0"
   },
   "devDependencies": {
     "@types/node": "22.10.2",
