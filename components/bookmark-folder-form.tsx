@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { PlusSquare } from "lucide-react";
@@ -17,6 +15,7 @@ type BookmarkFolderFormInputs = {
 export default function BookmarkFolderForm() {
   const supabase = createClient();
   const [userId, setUserId] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -49,20 +48,22 @@ export default function BookmarkFolderForm() {
 
     if (error) {
       console.error("Error inserting folder:", error.message);
-      alert("Failed to create folder: " + error.message); //TO DO: Update alert. Insert from Chakra UI.
+      alert("Failed to create folder: " + error.message);
       return;
     }
 
     if (newBookmarkFolder) {
-      alert("Folder created successfully! 🎉"); //TO DO: Update alert. Insert from Chakra UI.
       reset();
+      setOpen(false);
     }
   };
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <PlusSquare />
+        <Button variant="ghost" onClick={() => setOpen(true)}>
+          <PlusSquare />
+        </Button>
       </Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
@@ -76,10 +77,14 @@ export default function BookmarkFolderForm() {
                 <Label className="flex mb-2">Name</Label>
                 <Input {...register("name")} placeholder="Name" />
               </Dialog.Body>
-              <Dialog.Footer>
-                <Dialog.ActionTrigger asChild>
-                  <Button variant="outline">Close</Button>
-                </Dialog.ActionTrigger>
+              <Dialog.Footer className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setOpen(false)}
+                >
+                  Close
+                </Button>
                 <Button type="submit">Save</Button>
               </Dialog.Footer>
             </form>
