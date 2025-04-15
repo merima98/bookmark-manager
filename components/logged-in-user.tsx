@@ -9,7 +9,10 @@ import { devtools } from "zustand/middleware";
 import { Input } from "./ui/input";
 import AddBookmarkForm from "./add-bookmark-form";
 import BookmarkFolderForm from "./bookmark-folder-form";
-import { useBookmarkFolders } from "@/app/http/bookmarks";
+import {
+  useBookmarkFolders,
+  useBookmarksFromSelectedFolder,
+} from "@/app/http/bookmarks";
 import { Bookmark } from "@/app/http/bookmarks/types";
 
 export const useBookmarkStore = create(
@@ -29,15 +32,19 @@ export const useBookmarkStore = create(
 );
 
 export default function LoggedInUser() {
-  const { bookmarks } = useBookmarkFolders();
+  const { bookmarkFolders } = useBookmarkFolders();
 
   const { setBookmark, bookmark } = useBookmarkStore();
 
+  const { selectedFolderBookmarks } = useBookmarksFromSelectedFolder(
+    bookmark?.id || 0
+  );
+
   useEffect(() => {
-    if (bookmarks && !bookmark) {
-      setBookmark(bookmarks[0]);
+    if (bookmarkFolders && !bookmark) {
+      setBookmark(bookmarkFolders[0]);
     }
-  }, [bookmarks]);
+  }, [bookmarkFolders]);
   return (
     <div>
       <div className="grid p-4 gap-6 grid-cols-[1fr_2fr_0.5fr]">
@@ -50,7 +57,7 @@ export default function LoggedInUser() {
       </div>
       <div className="grid p-4 gap-6 grid-cols-[1fr_2fr]">
         <div className="flex flex-col gap-4">
-          {bookmarks?.map((bookmark) => (
+          {bookmarkFolders?.map((bookmark) => (
             <div
               key={bookmark.id}
               className="flex gap-2 items-center cursor-pointer"
