@@ -61,9 +61,7 @@ export default function BookmarkFolderForm() {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <Button variant="ghost" onClick={() => setOpen(true)}>
-          <PlusSquare />
-        </Button>
+        <PlusSquare onClick={() => setOpen(true)} />
       </Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop />
