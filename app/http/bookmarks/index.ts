@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { createClient } from "@/utils/supabase/client";
-import { Bookmark } from "./types";
+import { Bookmark, BookmarkFolder } from "./types";
 
 export function useBookmarkFolders() {
     const supabase = createClient();
-    const [bookmarkFolders, setBookmarkFolder] = useState<Bookmark[] | undefined>(undefined);
+    const [bookmarkFolders, setBookmarkFolder] = useState<BookmarkFolder[] | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
